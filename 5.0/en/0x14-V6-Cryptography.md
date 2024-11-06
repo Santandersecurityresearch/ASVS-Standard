@@ -147,17 +147,17 @@ ONLY AES-256 MUST be used for key wrapping, following [NIST SP 800-38F](https://
 
 AES-192 and AES-128 MAY be used if the use case demands it, but its motivation MUST be documented in the entity's cryptography inventory. Any other method for key wrapping MUST NOT be used.
 
-## V6.3a Hashing and Hash-based Functions
+## V6.4 Hashing and Hash-based Functions
 
 Cryptographic hashes are used in a wide variety of cryptographic protocols, such as digital signatures, HMAC, key derivation functions (KDF), random bit generation, and password storage. The security of the cryptographic system is only as strong as the underlying hash functions used. This section outlines the requirements for using secure hash functions in cryptographic operations.
 
 |     #     | Description                                                                                                                                                                                          | L1  | L2  | L3  | CWE |
 | :-------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-: | :-: | :-: | :-: |
-| **6.8.1** | Verify that only approved hash functions are used for general cryptographic use cases, including digital signatures, HMAC, KDF, and random bit generation. Approved hash functions are listed below. |     |  ✓  |  ✓  | 916 |
-| **6.8.2** | Verify that slow hashing functions are used for password storage, with appropriate parameter settings as outlined below.                                                                             |     |  ✓  |  ✓  | 916 |
-| **6.8.3** | Verify that cryptographic systems avoid the use of disallowed hash functions, such as MD5, SHA-1, or any other insecure hash functions, for any cryptographic purpose.                               |  ✓  |  ✓  |  ✓  | 327 |
-| **6.8.4** | Verify that hash functions used in digital signatures are collision resistant and have appropriate bit-lengths to avoid attacks, such as collision or pre-image attacks.                             |  ✓  |  ✓  |  ✓  | 916 |
-| **6.8.5** | Verify that hash functions used in HMAC, KDF, and random bit generation are derived from those with proper entropy seeding for random bit generation.                                                |     |  ✓  |  ✓  | 916 |
+| **6.4.1** | Verify that only approved hash functions are used for general cryptographic use cases, including digital signatures, HMAC, KDF, and random bit generation. Approved hash functions are listed below. |     |  ✓  |  ✓  | 916 |
+| **6.4.2** | Verify that slow hashing functions are used for password storage, with appropriate parameter settings as outlined below.                                                                             |     |  ✓  |  ✓  | 916 |
+| **6.4.3** | Verify that cryptographic systems avoid the use of disallowed hash functions, such as MD5, SHA-1, or any other insecure hash functions, for any cryptographic purpose.                               |  ✓  |  ✓  |  ✓  | 327 |
+| **6.4.4** | Verify that hash functions used in digital signatures are collision resistant and have appropriate bit-lengths to avoid attacks, such as collision or pre-image attacks.                             |  ✓  |  ✓  |  ✓  | 916 |
+| **6.4.5** | Verify that hash functions used in HMAC, KDF, and random bit generation are derived from those with proper entropy seeding for random bit generation.                                                |     |  ✓  |  ✓  | 916 |
 
 ### Approved Hash Functions for General Use Cases
 
@@ -209,15 +209,15 @@ For digital signature implementations, the following hash functions MUST NOT be 
 | SHA-512/224    | [FIPS 180-4](https://csrc.nist.gov/pubs/fips/180-4/upd1/final) |
 | SHA3-224       | [FIPS 202](https://csrc.nist.gov/pubs/fips/202/final)          |
 
-## V6.4 Random Values
+## V6.5 Random Values
 
 Cryptographically secure Pseudo-random Number Generation (CSPRNG) is incredibly difficult to get right. Generally, good sources of entropy within a system will be quickly depleted if over-used, but sources with less randomness can lead to predictable keys and secrets.
 
 |     #     | Description                                                                                                 | L1  | L2  | L3  | CWE |
 | :-------: | :---------------------------------------------------------------------------------------------------------- | :-: | :-: | :-: | :-: |
-| **6.3.1** | All random numbers and strings intended to be non-guessable must be generated using a CSPRNG.               |     |  ✓  |  ✓  | 338 |
-| **6.3.2** | 6.3.2 [MODIFIED] Verify that GUIDs are created with an implementation of the GUID v4 or v7 algorithms which utilizes a CSPRNG. GUIDs created using other algorithm versions or using insufficiently secure pseudo-random number generators may be predictable.                                              |     |  ✓  |  ✓  | 338 |
-| **6.3.3** | Random number generation must work properly under heavy system load, or the system must degrade gracefully. |     |     |  ✓  | 338 |
+| **6.5.1** | All random numbers and strings intended to be non-guessable must be generated using a CSPRNG.               |     |  ✓  |  ✓  | 338 |
+| **6.5.2** | 6.3.2 [MODIFIED] Verify that GUIDs are created with an implementation of the GUID v4 or v7 algorithms which utilizes a CSPRNG. GUIDs created using other algorithm versions or using insufficiently secure pseudo-random number generators may be predictable.                                              |     |  ✓  |  ✓  | 338 |
+| **6.5.3** | Random number generation must work properly under heavy system load, or the system must degrade gracefully. |     |     |  ✓  | 338 |
 
 ### Approved RNG Methods and Algorithms
 
@@ -239,24 +239,24 @@ The following SHOULD NOT be used for RBG (according to [NIST SP-800-57 Part 1](h
 | SHA-224     | [FIPS 180-4](https://csrc.nist.gov/pubs/fips/180-4/upd1/final) |
 | KMAC128     | [NIST SP 800-185](https://csrc.nist.gov/pubs/sp/800/185/final) |
 
-## V6.5 Secret Management
+## V6.6 Secret Management
 
 Although this section is not easily penetration tested, developers should consider this entire section as mandatory even though L1 is missing from most of the items.
 
 |     #     | Description                                                                                                                                                      | L1  | L2  | L3  | CWE |
 | :-------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-: | :-: | :-: | :-: |
-| **6.4.1** | A secrets management solution, such as a key vault, must be used to securely create, store, and control access to secrets (e.g., credentials, service accounts). |     |  ✓  |  ✓  | 798 |
-| **6.4.2** | Key material must not be exposed to the application and should be stored and managed within an isolated security module.                                         |     |  ✓  |  ✓  | 320 |
-| **6.4.3** | Verify that cryptographic keys and secrets be managed using approved key management systems with proper auditing and access controls.                |     |  ✓  |  ✓  | 320 |
-| **6.4.4** | Verify that a function exists for the secure destruction of secrets, ensuring that secrets are irrecoverable when no longer needed.                              |     |  ✓  |  ✓  | 320 |
+| **6.6.1** | A secrets management solution, such as a key vault, must be used to securely create, store, and control access to secrets (e.g., credentials, service accounts). |     |  ✓  |  ✓  | 798 |
+| **6.6.2** | Key material must not be exposed to the application and should be stored and managed within an isolated security module.                                         |     |  ✓  |  ✓  | 320 |
+| **6.6.3** | Verify that cryptographic keys and secrets be managed using approved key management systems with proper auditing and access controls.                |     |  ✓  |  ✓  | 320 |
+| **6.6.4** | Verify that a function exists for the secure destruction of secrets, ensuring that secrets are irrecoverable when no longer needed.                              |     |  ✓  |  ✓  | 320 |
 
-## V6.6 Key Exchange Mechanisms
+## V6.7 Key Exchange Mechanisms
 
 There exists a need for approved key exchange mechanisms, such as Diffie-Hellman and Elliptic Curve Diffie-Hellman (ECDH) to ensure that the cryptosystem remains secure against modern threats.
 
 |     #     | Description                                                                                                                                                                                                                                                                                                    | L1  | L2  | L3  | CWE |
 | :-------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-: | :-: | :-: | :-: |
-| **6.5.1** | Verify that industry-proven cryptographic algorithms, such as Diffie-Hellman groups, with a focus on ensuring that key exchange mechanisms use secure parameters to prevent man-in-the-middle attacks or cryptographic breaks, are used for key exchanges to prevent attacks on the key establishment process. |     |  ✓  |  ✓  | 798 |
+| **6.7.1** | Verify that industry-proven cryptographic algorithms, such as Diffie-Hellman groups, with a focus on ensuring that key exchange mechanisms use secure parameters to prevent man-in-the-middle attacks or cryptographic breaks, are used for key exchanges to prevent attacks on the key establishment process. |     |  ✓  |  ✓  | 798 |
 
 ### Approved KEX Schemes
 
@@ -299,21 +299,21 @@ Any new implementation MUST NOT use any scheme that is NOT compliant with [NIST 
 
 Specifically, IKEv1 MUST NOT be used in production.
 
-## V6.7 In-Use Data Cryptography
+## V6.8 In-Use Data Cryptography
 
 Protecting data while it is being processed is paramount. Techniques such as full memory encryption, encryption of data in transit, and ensuring data is encrypted as quickly as possible after use is recommended.
 
 |     #     | Description                                                                                                                                                                    | L1  | L2  | L3  | CWE |
 | :-------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-: | :-: | :-: | :-: |
-| **6.6.1** | Verify that full memory encryption is in use that protects sensitive data while it is in use, preventing access by unauthorized users or processes.                            |     |  ✓  |  ✓  | 798 |
-| **6.6.2** | Verify that data minimization ensures the minimal amount of data is exposed during processing, and ensure that data is encrypted immediately after use or as soon as feasible. |     |  ✓  |  ✓  | 798 |
+| **6.8.1** | Verify that full memory encryption is in use that protects sensitive data while it is in use, preventing access by unauthorized users or processes.                            |     |  ✓  |  ✓  | 798 |
+| **6.8.2** | Verify that data minimization ensures the minimal amount of data is exposed during processing, and ensure that data is encrypted immediately after use or as soon as feasible. |     |  ✓  |  ✓  | 798 |
 
-## V6.8 Post-Quantum Cryptography (PQC)
+## V6.9 Post-Quantum Cryptography (PQC)
 
 The need to future-proof cryptographic systems in preparation for the eventual rise of quantum computing is critical. Post-Quantum Cryptography (PQC) focuses on developing cryptographic systems that are resistant to quantum attacks, which could break current encryption methods such as RSA and ECC.
 
 |     #     | Description                                                                                                                                                                                                                                 | L1  | L2  | L3  | CWE |
 | :-------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :-: | :-: | :-: | :-: |
-| **6.7.1** | Verify that Quantum-Safe Algorithms, or quantum-resistant algorithms, such as lattice-based, hash-based, code-based, or multivariate cryptographic schemes, as replacements for vulnerable classical algorithms like RSA and ECC, are used. |     |  ✓  |  ✓  | 798 |
-| **6.7.2** | Verify that cryptographic systems are designed to allow for seamless upgrades to post-quantum cryptography, enabling the transition once PQC standards are fully established.                                                               |     |  ✓  |  ✓  | 798 |
-| **6.7.3** | Regularly monitor advancements in the field of post-quantum cryptography and align with emerging industry standards to remain prepared for quantum threats.                                                                                 |     |  ✓  |  ✓  | 798 |
+| **6.9.1** | Verify that Quantum-Safe Algorithms, or quantum-resistant algorithms, such as lattice-based, hash-based, code-based, or multivariate cryptographic schemes, as replacements for vulnerable classical algorithms like RSA and ECC, are used. |     |  ✓  |  ✓  | 798 |
+| **6.9.2** | Verify that cryptographic systems are designed to allow for seamless upgrades to post-quantum cryptography, enabling the transition once PQC standards are fully established.                                                               |     |  ✓  |  ✓  | 798 |
+| **6.9.3** | Regularly monitor advancements in the field of post-quantum cryptography and align with emerging industry standards to remain prepared for quantum threats.                                                                                 |     |  ✓  |  ✓  | 798 |
