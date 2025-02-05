@@ -1,6 +1,8 @@
 # Appendix V: Cryptography
 
-V6 goes beyond simply defining best practices. It aims to enhance understanding of cryptography principles and encourage the adoption of more resilient, modern security methods. This appendix provides detailed technical information regarding each requirement, complementing the overarching standards outlined in V6
+V6 goes beyond simply defining best practices. It aims to enhance understanding of cryptography principles and encourage the adoption of more resilient, modern security methods. This appendix provides detailed technical information regarding each requirement, complementing the overarching standards outlined in V6.
+
+Unless stated otherwise, every list of approved cryptography in this section is ordered MOST-to-LEAST preferred. 
 
 ## Algorithms (V6.2)
 
@@ -16,7 +18,7 @@ The relative security strengths for various cryptographic systems are in this ta
 | 192 | AES-192 | L = 7680 <br> N = 384 | k = 7680 | f = 384-511 |
 | 256 | AES-256 | L = 15360 <br> N = 512 | k = 15360 | f = 512+ |
 
-Note: that this section assumes that no quantum computer exists; if such a computer would exist, the estimates for the last 3 columns would be no longer valid.
+Note: This list is not ordered most-to-least preferred. Additionally, this section assumes that no quantum computer exists; if such a computer would exist, the estimates for the last 3 columns would be no longer valid.
 
 ## Random Values (V6.3)
 
